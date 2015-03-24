@@ -3,7 +3,7 @@ import json
 
 JSON_FILE_INPUT = 'tip.json'
 SQL_SCRIPT_OUTPUT = 'tip.sql'
-TABLE_NAME = 'TIP'
+TABLE_NAME = 'TIPS'
 
 
 # removes any quotes and special characters
@@ -22,13 +22,14 @@ line = fi.readline()
 while line:
     j = json.loads(line)
     # a 'tip' is considered only if it got one or more likes,
-    # or it's written in 2014 or later
-    if j.get('likes') > 0 or int(get_year(j.get('date'))) >= 2014:
+    # or it's written in 2014 or later. Also tips >= 100
+    # characters are dropped.
+    if len(j.get('text')) < 100 and (j.get('likes') > 0 or int(get_year(j.get('date'))) >= 2014):
         b_id = j.get('business_id')
         tip = del_special_char(j.get('text'))
         likes = j.get('likes')
         stmt = "INSERT INTO " + TABLE_NAME
-        stmt += " (b_id, tip, likes) VALUES "
+        stmt += " (business_id, tip, likes) VALUES "
         stmt += ("('{0}', '{1}', {2});\n").format(b_id, tip, likes)
         fo.write(stmt)
     line = fi.readline()

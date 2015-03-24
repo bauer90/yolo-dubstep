@@ -18,7 +18,8 @@ def get_zip(s):
     return s[s.rfind(' ')+1:]
 
 
-# remove any quotes and special characters
+# removes any quotes and special characters
+# but retains spaces and newlines
 def del_special_char(s):
     return ''.join(c for c in s if c.isalnum() or c == ' ' or c == '\n')
 
