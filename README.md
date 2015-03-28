@@ -14,6 +14,9 @@ CATEGORIES
 
 TIPS
 (business_id, tip, likes)
+
+USERS
+(user_id, friend_id, first_name, last_name, plan_txt)
 ```
 
 
