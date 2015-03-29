@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ')(27r2(&1@0_gc#-(_2cm=_edan4@qro&!5^k5hteq2ns0r5!g'
+SECRET_KEY = 'u6t8)sij98(_i5o8!1-1g86n09^y&t*#i(vn+zm=p2kk7i(=&9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -58,12 +58,8 @@ WSGI_APPLICATION = 'yelpapp.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.environ['RDS_DB_NAME'],
-        'USER': os.environ['RDS_USERNAME'],
-        'PASSWORD': os.environ['RDS_PASSWORD'],
-        'HOST': os.environ['RDS_HOSTNAME'],
-        'PORT': os.environ['RDS_PORT'],
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
 
