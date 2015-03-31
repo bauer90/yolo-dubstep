@@ -1,5 +1,5 @@
 """
-Django settings for yelpapp project.
+Django settings for cis550project project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/1.7/topics/settings/
@@ -17,7 +17,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u6t8)sij98(_i5o8!1-1g86n09^y&t*#i(vn+zm=p2kk7i(=&9'
+SECRET_KEY = '06v)5hhq6bn0n)$#v3yr()j&w(cdd(lyu&%-n6$ec-%sy1iva^'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -36,6 +36,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'yelp',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -48,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'yelpapp.urls'
+ROOT_URLCONF = 'cis550project.urls'
 
-WSGI_APPLICATION = 'yelpapp.wsgi.application'
+WSGI_APPLICATION = 'cis550project.wsgi.application'
 
 
 # Database
@@ -79,5 +80,10 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
-
+STATIC_PATH = os.path.join(BASE_DIR, 'static')
 STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    STATIC_PATH,
+)
+
+TEMPLATE_DIRS = (BASE_DIR + '/templates/',)

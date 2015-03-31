@@ -3,7 +3,7 @@ import json
 
 JSON_FILE_INPUT = 'business.json'
 SQL_SCRIPT_OUTPUT = 'business.sql'
-TABLE_NAME = 'BSNS'
+TABLE_NAME = 'BUSINESS'
 
 
 # useful when getting street address
@@ -33,9 +33,9 @@ while line:
         b_id = j.get('business_id')
         name = del_special_char(j.get('name'))
         full_addr = del_special_char(j.get('full_address'))
-        street_addr = del_last_line(full_addr).replace('\n', ' ')  # makes address into a single line
-        city = j.get('city')
-        state = j.get('state')
+        street_addr = del_special_char(del_last_line(full_addr)).replace('\n', ' ')  # makes address into a single line
+        city = del_special_char(j.get('city'))
+        state = del_special_char(j.get('state'))
         zipcode = get_zip(full_addr)
         lat = j.get('latitude')
         long = j.get('longitude')
