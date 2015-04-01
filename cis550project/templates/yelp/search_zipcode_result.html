@@ -1,0 +1,18 @@
+{% extends 'yelp/base.html' %}
+{% block body_block %}
+    <h1> Search reseult for zipcode {{ zipcode }}</h1>
+
+    <table class="table table-striped">
+    {% if not arr %}
+        <p>Sorry, this zipcode matches no record in database.</p>
+    {% else %}
+        {% for row in arr %}
+        <tr>
+            <td>{{row.0}}</td>
+            <td>{{row.1}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+    <a href="{% url 'search_zipcode' %}">Try another search</a>
+{% endblock %}
