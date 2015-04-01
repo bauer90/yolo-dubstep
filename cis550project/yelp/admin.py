@@ -1,3 +1,5 @@
 from django.contrib import admin
+from yelp.models import Zipcode
 
-# Register your models here.
+
+admin.site.register(Zipcode)
