@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from yelp.forms import ZipcodeForm
-import _mysql
+from util import *
 
 
 def index(request):
@@ -26,20 +26,12 @@ def search_zipcode(request):
 
 
 def search_zipcode_result(request, zipcode):
-    conn = _mysql.connect('mysql.cb0rrjncuorj.us-west-2.rds.amazonaws.com',
-                          'erhan',
-                          '550300321',
-                          'mydb')
-    conn.query("""select b.name, b.state
-                  from BUSINESS as b
-                  where b.zipcode = '""" + zipcode + "' limit 25")
-    result = conn.use_result()
+    result = sql_connect(sql_search_zipcode(zipcode))
     arr = []
     row = result.fetch_row()
     while len(row) > 0:
         arr.append(row[0])
         row = result.fetch_row()
-    conn.close()
     print(arr)
     return render(request, 'yelp/search_zipcode_result.html', {'zipcode': zipcode,
                                                                'arr': arr,
