@@ -2,7 +2,7 @@
 
 {% block title_block %} Home {% endblock %}
 {% block body_block %}
-<h1>Start your restaurant search here ...</h1>
+<h1>Start your restaurant search here ......</h1>
 <p>Please use your local zipcode to search: </p>
 <a href="{% url 'search_zipcode' %}">Search</a>
 <p></p>

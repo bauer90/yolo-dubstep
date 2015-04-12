@@ -1,5 +1,84 @@
 {% extends 'yelp/base.html' %}
 {% block title_block %} About {% endblock %}
 {% block body_block %}
-   <h2>This is the about page </h2>
+<head>
+<meta charset="UTF-8">
+<title>Sample</title>
+<style type="text/css">
+        h3  { color:black 
+              align:center}
+        
+        
+	.box {
+		height: 660px;
+		width: 520px;
+		margin: 0 auto;
+		background: lightgreen;
+		border: 5px solid #FFCCFF;
+	}
+	
+	.fdiv {
+		height: 320px;
+		width: 250px;
+		float: left;
+		background: #FFCCFF;
+		border: 5px solid white;
+        }
+         .imgdiv {
+		height: 100px;
+		width: 100px;
+		float: left;
+		background: #FFCCFF;
+                border: 0px;		
+	}
+
+         .contact {
+		height: 150px;
+		width: 520px;
+		margin: 0 auto;
+		background: #99FFCC;       
+                border: 5px solid #99FFCC;		
+	}
+</style>
+</head>
+	<body>
+		<div>
+			<div class="box">
+				<div class="fdiv">
+                                    <h3>Yelp Search</h3>
+                                    <p>Find your interesting food here...</p>
+                                    <div class="imgdiv">
+                                    <img src="http://s3-media4.fl.yelpassets.com/bphoto/nwQP8AixC0hpOAtgUjn7Rg/90s.jpg">
+                                    </div>
+                                    <div class="imgdiv">
+                                    <img src="http://s3-media1.fl.yelpassets.com/bphoto/CEbZ32sr7BuG5_IXmx1OBQ/90s.jpg">
+                                    </div>
+                                    <div class="imgdiv">
+                                    <img src="http://s3-media4.fl.yelpassets.com/bphoto/6xbIkPb5t-aZLDmYS2hS5Q/90s.jpg">
+                                    </div>
+                                    <div class="imgdiv">
+                                    <img src="http://s3-media3.fl.yelpassets.com/bphoto/2TPndcbNAXbSLLljN5keGQ/90s.jpg">
+                                    </div>
+                                </div>
+				<div class="fdiv">
+                                    <h3>Search by zipcode </h3>
+                                    <p>When you search by zipcode, we will give you feedback of local restaurant name, and you can easily choose what you want.</p>
+                                </div>						
+				<div class="fdiv">
+                                    <h3>Nearby restaurant </h3>
+                                    <p>We also provide reference links of nearby zipcode area, you can get more information of restaurant in these areas.</p>
+                                </div>
+				<div class="fdiv">
+                                    <h2 style="float:center">Waiting for more...</h3>
+                                </div>
+			</div>
+			<div class="contact">
+                        <h2 style="align:left"> Contact Us </h2>
+                        <p>Erhan Hu:   erhan@seas.upenn.edu</p>
+                        <p>Yanwen Jin: mouwan.jyw@gmail.com</p>
+                        <p>Jiali Han:  jialihan@seas.upenn.edu</p>
+                        <div>
+		</div>
+	</body>   
+
 {% endblock %}
