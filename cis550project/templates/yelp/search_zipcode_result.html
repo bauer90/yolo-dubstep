@@ -4,7 +4,7 @@
 
     <table class="table table-striped">
     {% if not arr %}
-        <p>Sorry, this zipcode matches no record in database.</p>
+        <h3>Sorry, this zipcode matches no record in database.</h3>
     {% else %}
         {% for row in arr %}
         <tr>
@@ -15,4 +15,11 @@
     </table>
     {% endif %}
     <a href="{% url 'search_zipcode' %}">Try another search</a>
+
+    {% if zipcode_arr %}
+        <h3 class="text-center">Also try these nearby zipcodes:</h3>
+            {% for row in zipcode_arr %}
+              <h4><a href={% url 'search_zipcode_result' row.0  %} > {{ row.0 }} </a></h4>
+            {% endfor %}
+    {% endif %}
 {% endblock %}

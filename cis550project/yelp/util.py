@@ -37,7 +37,7 @@ def sql_zip_center(zipcode):
 def sql_nearby_zipcodes(lati, longi, offset):
     return """select distinct(b.zipcode) from BUSINESS as b
            where b.latitude > """ + str(lati-offset) + """ and b.latitude < """ + str(lati+offset) + """
-           and b.longitude > """ + str(longi-offset) + """ and b.longitude  < """ + str(longi+offset)
+           and b.longitude > """ + str(longi-offset) + """ and b.longitude  < """ + str(longi+offset) + """ limit 15"""
 
 
 # Returns a set of categories that appear
@@ -59,4 +59,3 @@ def sql_search_nearby(zipcode, category):
 # TESTING AREA
 # result = sql_connect(sql_zipcode_location('89109'))
 # print(result.fetch_row()[0])
-print(sql_search_nearby('89109', 'Restaurant'))
