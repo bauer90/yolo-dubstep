@@ -3,8 +3,20 @@
 {% block title_block %} Home {% endblock %}
 {% block body_block %}
 <h1>Start your restaurant search here ...</h1>
-<p>Please use your local zipcode to search: </p>
+<h3>Please use your local zipcode to search: </h3>
 <a href="{% url 'search_zipcode' %}">Search</a>
+<h3>These areas are popular: </h3>
+
+<table class="table table-striped">
+    {% for z in zipcodes %}
+        <tr>
+            <td><a href="{% url 'search_zipcode_result' z.2 %}">{{ z.0 }}, {{ z.1 }} {{ z.2 }}</a></td>
+            <td align="right">{{ z.3 }} places to visit</td>
+        </tr>
+    {% endfor %}
+</table>
+
+
 <p></p>
 <p></p>
 <p></p>

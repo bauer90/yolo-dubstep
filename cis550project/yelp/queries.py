@@ -15,8 +15,19 @@ def sql_connect(q):
     return result
 
 
-# Returns the top 25 businesses that
-# have the given zipcode.
+# Returns the top 15 most popular
+# zipcodes, trying to include every
+# state.
+def sql_popular_zipcodes():
+    return """select distinct b.city, b.state, b.zipcode, count(b.id) from BUSINESS b
+              group by b.state
+              order by count(b.id) desc
+              limit 15"""
+
+
+# Returns the top 20 businesses that
+# have the given zipcode, order by their
+# ratings.
 def sql_search_zipcode(zipcode):
     return """select b.name, b.stars, b.city, b.state
                   from BUSINESS as b
@@ -48,7 +59,7 @@ def sql_local_categories(zipcode):
            where z.zipcode = '""" + str(zipcode) + "'"
 
 
-# Returns a set of business id who have the
+# Returns a set of business ids who have the
 # given zipcode and category.
 def sql_search_nearby(zipcode, category):
     return """select distinct(b.id) from BUSINESS as b inner join CATEGORIES as c
@@ -57,5 +68,3 @@ def sql_search_nearby(zipcode, category):
 
 
 # TESTING AREA
-# result = sql_connect(sql_zipcode_location('89109'))
-# print(result.fetch_row()[0])

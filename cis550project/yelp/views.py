@@ -1,10 +1,11 @@
 from django.shortcuts import render
 from yelp.forms import ZipcodeForm
-from util import *
+from preproc import *
 
 
 def index(request):
-    return render(request, 'yelp/index.html', [])
+    zipcodes = gen_popular_zipcodes()
+    return render(request, 'yelp/index.html', {'zipcodes': zipcodes})
 
 
 def about(request):
