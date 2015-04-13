@@ -1,4 +1,5 @@
 {% extends 'yelp/base.html' %}
+{% block title_block %} Zipcode Search Results {% endblock %}
 {% block body_block %}
     <h1> Places found at {{ zipcode }} ({{ arr.0.2 }}, {{ arr.0.3 }})</h1>
 

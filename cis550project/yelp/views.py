@@ -29,22 +29,10 @@ def search_zipcode(request):
 def search_zipcode_result(request, zipcode):
 
     # search nearby businesses
-    result = sql_connect(sql_search_zipcode(zipcode))
-    arr = []
-    row = result.fetch_row()
-    while len(row) > 0:
-        arr.append(row[0])
-        row = result.fetch_row()
+    arr = gen_zipcode_result(zipcode)
 
     # search nearby zipcodes
-    center = sql_connect(sql_zip_center(zipcode)).fetch_row()[0]
-    nearby_zipcodes = sql_connect(sql_nearby_zipcodes(float(center[0]), float(center[1]), float(0.1)))
-    zipcode_arr = []
-    zipcode_row = nearby_zipcodes.fetch_row()
-    while len(zipcode_row) > 0:
-        if zipcode_row[0] != zipcode:
-            zipcode_arr.append(zipcode_row[0])
-        zipcode_row = nearby_zipcodes.fetch_row()
+    zipcode_arr = gen_zipcodes_nearby(zipcode)
 
     return render(request, 'yelp/search_zipcode_result.html', {'zipcode': zipcode,
                                                                'arr': arr,
