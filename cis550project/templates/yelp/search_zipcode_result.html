@@ -1,11 +1,12 @@
 {% extends 'yelp/base.html' %}
 {% block body_block %}
-    <h1> Search reseult for zipcode {{ zipcode }}</h1>
+    <h1> Places found at {{ zipcode }} ({{ arr.0.2 }}, {{ arr.0.3 }})</h1>
 
     <table class="table table-striped">
     {% if not arr %}
         <h3>Sorry, this zipcode matches no record in database.</h3>
     {% else %}
+        <tr><th>Name</th><th>Rating</th></tr>
         {% for row in arr %}
         <tr>
             <td>{{row.0}}</td>
@@ -19,7 +20,7 @@
     {% if zipcode_arr %}
         <h3 class="text-center">Also try these nearby zipcodes:</h3>
             {% for row in zipcode_arr %}
-              <h4><a href={% url 'search_zipcode_result' row.0  %} > {{ row.0 }} </a></h4>
+              <h4><a href={% url 'search_zipcode_result' row.0  %} > {{ row.0 }} ({{ row.1 }}, {{ row.2 }}) </a></h4>
             {% endfor %}
     {% endif %}
 {% endblock %}

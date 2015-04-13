@@ -18,9 +18,9 @@ def sql_connect(q):
 # Returns the top 25 businesses that
 # have the given zipcode.
 def sql_search_zipcode(zipcode):
-    return """select b.name, b.state
+    return """select b.name, b.stars, b.city, b.state
                   from BUSINESS as b
-                  where b.zipcode = '""" + str(zipcode) + "' limit 25"
+                  where b.zipcode = '""" + str(zipcode) + "' order by b.stars desc limit 20"
 
 
 # Returns the 'geographical center'
@@ -35,7 +35,7 @@ def sql_zip_center(zipcode):
 # 'close enough' to the given [lati,longi]
 # combination.
 def sql_nearby_zipcodes(lati, longi, offset):
-    return """select distinct(b.zipcode) from BUSINESS as b
+    return """select distinct(b.zipcode), b.city, b.state from BUSINESS as b
            where b.latitude > """ + str(lati-offset) + """ and b.latitude < """ + str(lati+offset) + """
            and b.longitude > """ + str(longi-offset) + """ and b.longitude  < """ + str(longi+offset) + """ limit 15"""
 
