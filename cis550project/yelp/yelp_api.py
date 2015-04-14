@@ -5,17 +5,12 @@ import urllib
 import urllib2
 import oauth2
 import threading
+from yelp_api_info import *
 
 API_HOST = 'api.yelp.com'
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
 SEARCH_LIMIT = 1
-
-# OAuth credential placeholders that must be filled in by users.
-CONSUMER_KEY = 'O56KIyVISk8jbjJccjlBIg'
-CONSUMER_SECRET = 'LdiO-07Li43LCBM3XIpOIQeQrdA'
-TOKEN = 'yRbjgstGKJpQhEAFS_mGHLnmhU34eOxh'
-TOKEN_SECRET = 'NhylBe5QgLfN_TBnr3SBL1ljYgw'
 
 
 def request(host, path, url_params=None):
