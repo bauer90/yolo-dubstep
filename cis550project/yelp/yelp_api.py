@@ -4,6 +4,7 @@ import json
 import urllib
 import urllib2
 import oauth2
+import threading
 
 API_HOST = 'api.yelp.com'
 SEARCH_PATH = '/v2/search/'
@@ -106,16 +107,38 @@ def query_api(term, location):
     return response
 
 
-def get_business_picture(business_name, location):
-    result = query_api(business_name, location)
-    if result is not None:
-        url = result.get('image_url')
+# INPUT
+# business: [name, location, stars] where location is 'City, State'
+#
+# OUTPUT
+# append an array [name, location, stars, imgurl] to 'result'
+# (a storage 2D array for get_business_picture_parallel())
+def get_business_picture(business, result):
+    response = query_api(business[0], business[1])
+    if response is not None:
+        url = response.get('image_url')
         if url is not None:
             url_big_img = url[:url.rfind('/')] + '/348s.jpg'
-            print(url_big_img)
-            return url_big_img
-    return ""
+            result.append([business[0], business[1], business[2], url_big_img])
+    else:
+        result.append("")
+
+
+# INPUT: businesses (2D array)
+# [[b1_name, b1_location, b1_stars], [b2_name, b2_location, b2_stars], ...]
+# where bn_location is in format of 'City, State'.
+#
+# OUTPUT: [b1_name, b1_nameb1_imgurl, b2_imgurl, ...]
+def get_business_picture_parallel(businesses):
+    result = []
+    threads = [threading.Thread(target=get_business_picture, args=(b, result)) for b in businesses]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
+    return result
 
 
 # TEST AREA
-# print(get_business_picture('eds', 'Philadelphia, PA'))
+if __name__ == '__main__':
+    pass

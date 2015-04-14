@@ -68,3 +68,5 @@ def sql_search_nearby(zipcode, category):
 
 
 # TESTING AREA
+if __name__ == '__main__':
+    pass

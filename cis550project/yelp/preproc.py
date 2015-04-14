@@ -1,5 +1,6 @@
 __author__ = 'erhanhu'
 from queries import *
+from yelp_api import *
 import re
 
 
@@ -51,6 +52,16 @@ def gen_popular_zipcodes():
     return arr
 
 
+def add_image_to_zipcode_result(arr):
+    businesses = []
+    for b in arr:
+        businesses.append([b[0], str(b[2]+', '+b[3]), b[1]])
+    return get_business_picture_parallel(businesses)
+
+
 # TEST AREA (test these before using in views.py)
-#print(gen_popular_zipcodes())
-gen_zipcodes_nearby('89109')
+# print(gen_popular_zipcodes())
+if __name__ == '__main__':
+    arr = gen_zipcode_result('89109')
+    print arr
+    print(add_image_to_zipcode_result(arr))
