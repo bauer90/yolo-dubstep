@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from yelp.forms import ZipcodeForm
 from preproc import *
+from yelp_api import *
 
 
 def index(request):
@@ -30,6 +31,11 @@ def search_zipcode_result(request, zipcode):
 
     # search nearby businesses
     arr = gen_zipcode_result(zipcode)
+
+    # for each business, get an image url
+    for i in range(0, len(arr)):
+        url = get_business_picture(arr[i][0], arr[i][2] + ", " + arr[i][3])
+        arr[i].append(str(url))
 
     # search nearby zipcodes
     zipcode_arr = gen_zipcodes_nearby(zipcode)
