@@ -1,21 +1,14 @@
 # COMES FROM YELP API SAMPLE CODE FOR PYTHON.
 
-import argparse
 import json
-import pprint
-import sys
 import urllib
 import urllib2
-
 import oauth2
 
-
 API_HOST = 'api.yelp.com'
-DEFAULT_TERM = 'eds'
-DEFAULT_LOCATION = 'Philadelphia, PA'
-SEARCH_LIMIT = 10
 SEARCH_PATH = '/v2/search/'
 BUSINESS_PATH = '/v2/business/'
+SEARCH_LIMIT = 1
 
 # OAuth credential placeholders that must be filled in by users.
 CONSUMER_KEY = 'O56KIyVISk8jbjJccjlBIg'
@@ -55,9 +48,6 @@ def request(host, path, url_params=None):
     token = oauth2.Token(TOKEN, TOKEN_SECRET)
     oauth_request.sign_request(oauth2.SignatureMethod_HMAC_SHA1(), consumer, token)
     signed_url = oauth_request.to_url()
-
-    print u'Querying {0} ...'.format(url)
-
     conn = urllib2.urlopen(signed_url, None)
     try:
         response = json.loads(conn.read())
@@ -95,7 +85,6 @@ def get_business(business_id):
         dict: The JSON response from the request.
     """
     business_path = BUSINESS_PATH + business_id
-
     return request(API_HOST, business_path)
 
 
@@ -107,15 +96,12 @@ def query_api(term, location):
         location (str): The location of the business to query.
     """
     response = search(term, location)
-
     businesses = response.get('businesses')
-
     if not businesses:
         print u'No businesses for {0} in {1} found.'.format(term, location)
         return
 
     business_id = businesses[0]['id']
-
     response = get_business(business_id)
     return response
 
