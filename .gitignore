@@ -61,3 +61,6 @@ target/
 
 # Yelp API
 yelp_api_info.py
+
+# OS X
+.DS_Store
