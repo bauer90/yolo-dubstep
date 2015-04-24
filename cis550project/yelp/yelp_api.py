@@ -5,7 +5,7 @@ import urllib
 import urllib2
 import oauth2
 import threading
-from yelp_api_info import *
+from api_info import *
 
 API_HOST = 'api.yelp.com'
 SEARCH_PATH = '/v2/search/'
@@ -114,16 +114,21 @@ def get_business_picture(business, result):
         url = response.get('image_url')
         if url is not None:
             url_big_img = url[:url.rfind('/')] + '/348s.jpg'
-            result.append([business[0], business[1], business[2], url_big_img])
+            current_result = business
+            current_result.append(url_big_img)
+            result.append(current_result)
+            return
     else:
-        result.append("")
+        result.append('')
 
 
 # INPUT: businesses (2D array)
 # [[b1_name, b1_location, b1_stars], [b2_name, b2_location, b2_stars], ...]
 # where bn_location is in format of 'City, State'.
 #
-# OUTPUT: [b1_name, b1_nameb1_imgurl, b2_imgurl, ...]
+# OUTPUT: [[b1_name, b1_location, b1_stars, b1_imgurl],
+#          [b2_name, b2_location, b2_stars, b2_imgurl],
+#          ... ]
 def get_business_picture_parallel(businesses):
     result = []
     threads = [threading.Thread(target=get_business_picture, args=(b, result)) for b in businesses]
@@ -133,6 +138,9 @@ def get_business_picture_parallel(businesses):
         t.join()
     return result
 
+
+def ttt(t):
+    t.append(5)
 
 # TEST AREA
 if __name__ == '__main__':

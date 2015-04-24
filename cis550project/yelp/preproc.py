@@ -1,6 +1,7 @@
 __author__ = 'erhanhu'
 from queries import *
 from yelp_api import *
+from bing import *
 import re
 
 
@@ -57,6 +58,16 @@ def add_image_to_zipcode_result(arr):
     for b in arr:
         businesses.append([b[0], str(b[2]+', '+b[3]), b[1]])
     return get_business_picture_parallel(businesses)
+
+
+def add_bing_to_zipcode_result(arr):
+    businesses = []
+    for b in arr:
+        if len(b) == 0:
+            businesses.append(['','','',''])
+        else:
+            businesses.append(b)
+    return get_bing_description_parallel(businesses)
 
 
 # TEST AREA (test these before using in views.py)

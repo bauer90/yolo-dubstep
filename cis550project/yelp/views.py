@@ -34,6 +34,11 @@ def search_zipcode_result(request, zipcode):
     # for each business, get an image url
     arr = add_image_to_zipcode_result(arr)
 
+    # for each business, get a bing search result
+    arr = add_bing_to_zipcode_result(arr)
+
+    print(arr)
+
     # search nearby zipcodes
     zipcode_arr = gen_zipcodes_nearby(zipcode)
 
