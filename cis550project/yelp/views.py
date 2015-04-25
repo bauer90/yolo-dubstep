@@ -32,20 +32,22 @@ def search_zipcode_result(request, zipcode):
     # after this call, arr has elements that
     # look like [name, stars, city, state]
     arr = gen_zipcode_result(zipcode)
+    zipcode_arr = []
 
-    # for each business, append an image url.
-    # after this call, arr has elements that
-    # look like [name, stars, city, state, imgurl]
-    arr = add_image_to_zipcode_result(arr)
+    if arr:
+        # for each business, append an image url.
+        # after this call, arr has elements that
+        # look like [name, stars, city, state, imgurl]
+        arr = add_image_to_zipcode_result(arr)
 
-    # for each business, append a bing search result
-    # (description of the first search result for that business).
-    # after this call, arr has elements that
-    # look like [name, stars, city, state, imgurl, bing_des]
-    arr = add_bing_to_zipcode_result(arr)
+        # for each business, append a bing search result
+        # (description of the first search result for that business).
+        # after this call, arr has elements that
+        # look like [name, stars, city, state, imgurl, bing_des]
+        arr = add_bing_to_zipcode_result(arr)
 
-    # search nearby zipcodes
-    zipcode_arr = gen_zipcodes_nearby(zipcode)
+        # search nearby zipcodes
+        zipcode_arr = gen_zipcodes_nearby(zipcode)
 
     return render(request, 'yelp/search_zipcode_result.html', {'zipcode': zipcode,
                                                                'arr': arr,

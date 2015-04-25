@@ -109,12 +109,9 @@ def query_api(term, location):
 # append an array [name, stars, city, state, imgurl] to 'result'
 # (a storage 2D array for get_business_picture_parallel())
 def get_business_picture(business, result):
-    name = str(business[0])
-    city = str(business[2])
-    state = str(business[3])
+    name, city, state = business[0], business[2], business[3]
     current_result = business
     current_result.append('')
-    print(current_result)
     response = query_api(name, city+','+state)
     if response is not None:
         url = response.get('image_url')

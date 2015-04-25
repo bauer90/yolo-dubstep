@@ -18,10 +18,8 @@ from api_info import *
 #   print results[0]['Description']
 def bing_search(search_string, search_type='Web', top=3, offset=0):
     credential_bing = 'Basic ' + (':%s' % BING_KEY).encode('base64')[:]
-    print BING_KEY
     url = 'https://api.datamarket.azure.com/Bing/Search/' + search_type + \
           '?Query=%s&$top=%d&$skip=%d&$format=json' % ('%27'+search_string+'%27', top, offset)
-    print url
     request = urllib2.Request(url)
     request.add_header('Authorization', credential_bing)
     request_opener = urllib2.build_opener()
