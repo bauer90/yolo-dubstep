@@ -56,7 +56,7 @@ def gen_popular_zipcodes():
 def add_image_to_zipcode_result(arr):
     businesses = []
     for b in arr:
-        businesses.append([b[0], str(b[2]+', '+b[3]), b[1]])
+        businesses.append(b)
     return get_business_picture_parallel(businesses)
 
 

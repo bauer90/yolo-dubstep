@@ -28,16 +28,21 @@ def search_zipcode(request):
 
 def search_zipcode_result(request, zipcode):
 
-    # search nearby businesses
+    # search nearby businesses.
+    # after this call, arr has elements that
+    # look like [name, stars, city, state]
     arr = gen_zipcode_result(zipcode)
 
-    # for each business, get an image url
+    # for each business, append an image url.
+    # after this call, arr has elements that
+    # look like [name, stars, city, state, imgurl]
     arr = add_image_to_zipcode_result(arr)
 
-    # for each business, get a bing search result
+    # for each business, append a bing search result
+    # (description of the first search result for that business).
+    # after this call, arr has elements that
+    # look like [name, stars, city, state, imgurl, bing_des]
     arr = add_bing_to_zipcode_result(arr)
-
-    print(arr)
 
     # search nearby zipcodes
     zipcode_arr = gen_zipcodes_nearby(zipcode)

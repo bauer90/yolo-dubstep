@@ -1,7 +1,6 @@
 import urllib2
 import json
 import threading
-from pprint import pprint
 from api_info import *
 
 
@@ -31,28 +30,27 @@ def bing_search(search_string, search_type='Web', top=3, offset=0):
     return json_results['d']['results']
 
 
-# transform [b_name, loc] where loc is 'city, state'
-# into '<b_name>+<city>+<state>' which works better
-# for search engines.
+# transforms [b_name, stars, city, state, imgurl]
+# into '<b_name>+<city>+<state>' then remove any
+# space
 def make_search_string(business):
-    return ''.join((business[0] + '+' + business[1].replace(',', '+')).split())
+    return ''.join((business[0] + '+' + business[2] + '+' + business[3]).split())
 
 
-# 'business' is [name, location, stars] Where
-#  location is 'city, state'.
-# OUTPUT: appending [name, location, stars, description]
-# (a storage 2D array for get_bing_description_parallel())
+# INPUT
+#   'business' is [name, stars, city, state, imgurl]
+# OUTPUT: appending [name, stars, city, state, imgurl, description]
+#   (a storage 2D array for get_bing_description_parallel()) to result
 def get_bing_description(business, result):
     response = bing_search(make_search_string(business))
+    current_result = business
+    current_result.append('')
     if response is not None:
         description = response[0]['Description']
         if description is not None:
-            current_result = business
-            current_result.append(description)
+            current_result[-1] = description
             result.append(current_result)
             return
-    else:
-        result.append('')
 
 
 # INPUT: businesses (2D array)

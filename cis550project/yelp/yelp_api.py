@@ -1,3 +1,4 @@
+# request(), search(), get_business() and query_api()
 # COMES FROM YELP API SAMPLE CODE FOR PYTHON.
 
 import json
@@ -103,23 +104,25 @@ def query_api(term, location):
 
 
 # INPUT
-# business: [name, location, stars] where location is 'City, State'
-#
+# business: [name, stars, city, state]
 # OUTPUT
-# append an array [name, location, stars, imgurl] to 'result'
+# append an array [name, stars, city, state, imgurl] to 'result'
 # (a storage 2D array for get_business_picture_parallel())
 def get_business_picture(business, result):
-    response = query_api(business[0], business[1])
+    name = str(business[0])
+    city = str(business[2])
+    state = str(business[3])
+    current_result = business
+    current_result.append('')
+    print(current_result)
+    response = query_api(name, city+','+state)
     if response is not None:
         url = response.get('image_url')
         if url is not None:
             url_big_img = url[:url.rfind('/')] + '/348s.jpg'
-            current_result = business
-            current_result.append(url_big_img)
+            current_result[-1] = url_big_img
             result.append(current_result)
             return
-    else:
-        result.append('')
 
 
 # INPUT: businesses (2D array)
@@ -138,9 +141,6 @@ def get_business_picture_parallel(businesses):
         t.join()
     return result
 
-
-def ttt(t):
-    t.append(5)
 
 # TEST AREA
 if __name__ == '__main__':
