@@ -12,7 +12,7 @@ class ZipcodeForm(forms.ModelForm):
         ]
     code = forms.CharField(max_length=6, help_text='Please enter a zipcode.')
     # MUST HAVE THE SAME NAME AS IN MODELS.PY ('code')
-    category = forms.ChoiceField(choices=options, widget=forms.RadioSelect())
+    cat = forms.ChoiceField(choices=options, widget=forms.RadioSelect())
 
     class Meta:
         model = Zipcode
