@@ -28,10 +28,12 @@ def sql_popular_zipcodes():
 # Returns the top 20 businesses that
 # have the given zipcode, order by their
 # ratings.
-def sql_search_zipcode(zipcode):
-    return """select b.name, b.stars, b.city, b.state
-                  from BUSINESS as b
-                  where b.zipcode = '""" + str(zipcode) + "' order by b.stars desc limit 20"
+def sql_search_zipcode(zipcode, category):
+    return 'select distinct b.name, b.stars, b.city, b.state ' + \
+           'from BUSINESS as b left join CATEGORIES as c ' + \
+           'on b.id = c.business_id ' + \
+           'where b.zipcode = "' + zipcode + '" ' + 'and ' + 'c.category like ' + '"%' + category + '%" ' + \
+           'order by b.stars desc limit 20'
 
 
 # Returns the 'geographical center'
@@ -69,4 +71,4 @@ def sql_search_nearby(zipcode, category):
 
 # TESTING AREA
 if __name__ == '__main__':
-    pass
+    print(sql_search_zipcode('89109', 'hotels'))

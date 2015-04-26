@@ -27,8 +27,8 @@ def get_alnum_row(tup):
     return result
 
 
-def gen_zipcode_result(zipcode):
-    result = sql_connect(sql_search_zipcode(zipcode))
+def gen_zipcode_result(zipcode, category):
+    result = sql_connect(sql_search_zipcode(zipcode, category))
     return sql_result_to_arr(result)
 
 

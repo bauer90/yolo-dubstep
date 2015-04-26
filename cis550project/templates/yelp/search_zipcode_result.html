@@ -1,7 +1,8 @@
 {% extends 'yelp/base.html' %}
 {% block title_block %} Zipcode Search Results {% endblock %}
 {% block body_block %}
-    <h1> Places found at {{ zipcode }} ({{ arr.0.2 }})</h1>
+    <h1> {% if cat == '%' %} Places {% else %} {{ cat }} {% endif %}
+        found at {{ zipcode }} ({{ arr.0.2 }})</h1>
 
     <table class="table table-striped">
     {% if not arr %}
