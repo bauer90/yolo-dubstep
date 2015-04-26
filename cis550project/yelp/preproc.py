@@ -28,6 +28,8 @@ def get_alnum_row(tup):
 
 
 def gen_zipcode_result(zipcode, category):
+    if category == 'all_cat':
+        category = '%'
     result = sql_connect(sql_search_zipcode(zipcode, category))
     return sql_result_to_arr(result)
 

@@ -8,7 +8,7 @@ class ZipcodeForm(forms.ModelForm):
         ('Restaurants', 'Restaurants'),
         ('Hotels', 'Hotels'),
         ('Bars', 'Bars'),
-        ('%', 'Search All Categories')
+        ('all_cat', 'Search All Categories')
         ]
     code = forms.CharField(max_length=6, help_text='Please enter a zipcode.')
     # MUST HAVE THE SAME NAME AS IN MODELS.PY ('code')
