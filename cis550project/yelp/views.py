@@ -16,10 +16,10 @@ def search_zipcode(request):
     if request.method == 'POST':
         form = ZipcodeForm(request.POST)
         if form.is_valid():
-            print(form.cleaned_data['category'])
+            print(form.cleaned_data['cat'])
             form.save(commit='True')
             zipcode_submitted = form.cleaned_data['code']
-            category_submitted = form.cleaned_data['category']
+            category_submitted = form.cleaned_data['cat']
             return search_zipcode_result(request, zipcode_submitted, category_submitted)
         else:
             print(form.errors)
@@ -54,5 +54,5 @@ def search_zipcode_result(request, zipcode, category):
     return render(request, 'yelp/search_zipcode_result.html', {'zipcode': zipcode,
                                                                'arr': arr,
                                                                'zipcode_arr': zipcode_arr,
-                                                               'category': category
+                                                               'cat': category
                                                                })
