@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+{% extends 'yelp/base.html' %}
+{% load staticfiles %}
+{% load bootstrap_toolkit %}
+<html>
+{% block title %} Register {% endblock %}
+{% block body_block %}
+    {% if registered %}
+        <h3>Thank you for registering!</h3>
+        <a href="{% url 'index' %}">Return to the homepage.</a><br/>
+    {% else %}
+        <form id="user_form" method="post" action="" enctype="multipart/form-data" class="form-signin">
+            {% csrf_token %}
+            <h2 class="form-signin-heading">Sign up</h2>
+            <br/>
+            <input class="form-control" placeholder="Username" id="id_username" maxlength="30" name="username" type="text" required autofocus=""/>
+            <input class="form-control" placeholder="Password" id="id_password" name="password" type="password" required />
+            <input class="form-control" placeholder="Email" id="id_email" name="email" required/>
+            <br/>
+            <div class="text-primary"> <strong>Choose Your Location:</strong> </div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="location" value="NV">Las Vegas, NV</label></div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="location" value="NC">Charlotte, NC</label></div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="location" value="IL">Urbana-Champaign, IL</label></div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="location" value="PA">Pittsburgh, PA</label></div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="location" value="AZ">Phoenix, AZ</label></div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="location" value="WI">Madison, WI</label></div>
+            <br/>
+            <input class="btn btn-primary" type="submit" name="submit" value="Register" />
+        </form>
+    {% endif %}
+{% endblock %}
+</html>

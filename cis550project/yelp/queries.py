@@ -25,15 +25,22 @@ def sql_popular_zipcodes():
               limit 15"""
 
 
+def sql_popular_zipcodes_for_state(state):
+    select = 'select distinct b.city, b.zipcode, count(b.id) from BUSINESS b '
+    where = 'where b.state = "' + state + '" '
+    group_order = 'group by b.city order by count(b.id) desc limit 10 '
+    return select + where + group_order
+
+
 # Returns the top 20 businesses that
 # have the given zipcode, order by their
 # ratings.
 def sql_search_zipcode(zipcode, category):
-    return 'select distinct b.name, b.stars, b.city, b.state ' + \
-           'from BUSINESS as b left join CATEGORIES as c ' + \
-           'on b.id = c.business_id ' + \
-           'where b.zipcode = "' + zipcode + '" ' + 'and ' + 'c.category like ' + '"%' + category + '%" ' + \
-           'order by b.stars desc limit 20'
+    select = 'select distinct b.name, b.stars, b.city, b.state ' + \
+             'from BUSINESS as b left join CATEGORIES as c on b.id = c.business_id '
+    where = 'where b.zipcode = "' + zipcode + '" ' + 'and ' + 'c.category like ' + '"%' + category + '%" '
+    order = 'order by b.stars desc limit 20 '
+    return select + where + order
 
 
 # Returns the 'geographical center'
@@ -71,4 +78,4 @@ def sql_search_nearby(zipcode, category):
 
 # TESTING AREA
 if __name__ == '__main__':
-    print(sql_search_zipcode('89109', 'hotels'))
+    print(sql_popular_zipcodes_for_state('NV'))

@@ -55,6 +55,16 @@ def gen_popular_zipcodes():
     return arr
 
 
+def gen_popular_zipcodes_for_state(state):
+    result = sql_connect(sql_popular_zipcodes_for_state(state))
+    arr_raw = sql_result_to_arr(result)
+    arr = []
+    for item in arr_raw:
+        if len(item[1]) == 5 and item[2].isdigit():
+            arr.append(item)
+    return arr
+
+
 def add_image_to_zipcode_result(arr):
     businesses = []
     for b in arr:

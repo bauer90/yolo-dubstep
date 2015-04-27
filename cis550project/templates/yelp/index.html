@@ -5,19 +5,27 @@
 <h1>Start your restaurant search here ...</h1>
 <h3>Please use your local zipcode to search: </h3>
 <a href="{% url 'search_zipcode' %}">Search</a>
-<h3>These areas are popular: </h3>
+<h3>These areas are popular {% if auth_flag %} around your location ({{ location }}) {% endif %}:</h3>
 
 <table class="table table-striped">
-    {% for z in zipcodes %}
-        <tr>
-            <td><a href="{% url 'search_zipcode_result' z.2 'all_cat' %}">{{ z.0 }}, {{ z.1 }} {{ z.2 }}</a></td>
-            <td align="right">{{ z.3 }} places to visit</td>
-        </tr>
-    {% endfor %}
+    {% if auth_flag %}
+        {% for z in zipcodes %}
+            <tr>
+                <td><a href="{% url 'search_zipcode_result' z.1 'all_cat' %}">{{ z.0 }}</a></td>
+                <td align="right">{{ z.2 }} places to visit</td>
+            </tr>
+        {% endfor %}
+    {% else %}
+        {% for z in zipcodes %}
+            <tr>
+                <td><a href="{% url 'search_zipcode_result' z.2 'all_cat' %}">{{ z.0 }}, {{ z.1 }} {{ z.2 }}</a></td>
+                <td align="right">{{ z.3 }} places to visit</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
 </table>
 
-<p></p>
-<p></p>
-<p></p>
+    </br>
+
 <img style="float:bottom" src="http://s3-media2.fl.yelpcdn.com/assets/srv0/www_pages/e98ed5a1460f/assets/img/brand_guidelines/yelp-2c-outline.png">
 {% endblock %}

@@ -1,6 +1,7 @@
 __author__ = 'erhanhu'
 from django import forms
-from yelp.models import Zipcode
+from django.contrib.auth.models import User
+from yelp.models import Zipcode, UserProfile
 
 
 class ZipcodeForm(forms.ModelForm):
@@ -17,3 +18,27 @@ class ZipcodeForm(forms.ModelForm):
     class Meta:
         model = Zipcode
         fields = ('code',)
+
+
+class UserForm(forms.ModelForm):
+    password = forms.CharField(widget=forms.PasswordInput())
+
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password',)
+
+
+class UserProfileForm(forms.ModelForm):
+    location_options = [
+        ('NV', 'Las Vegas, NV'),
+        ('NC', 'Charlotte, NC'),
+        ('IL', 'Urbana-Champaign, IL'),
+        ('PA', 'Pittsburgh, PA'),
+        ('AZ', 'Phoenix, AZ'),
+        ('WI', 'Madison, WI'),
+    ]
+    location = forms.ChoiceField(choices=location_options, widget=forms.RadioSelect())
+
+    class Meta:
+        model = UserProfile
+        fields = ('location',)

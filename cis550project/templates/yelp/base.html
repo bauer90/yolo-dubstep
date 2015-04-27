@@ -2,6 +2,8 @@
 <!--HTML TEMPLATE COMES FROM http://getbootstrap.com.-->
 {% load staticfiles %}
 <html lang="en">
+        <link href="http://getbootstrap.com/examples/signin/signin.css" rel="stylesheet">
+
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,9 +26,15 @@
       <div class="header clearfix">
         <nav>
           <ul class="nav nav-pills pull-right">
-            <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
-            <li role="presentation"><a href="{% url 'about' %}">About</a></li>
-            <li role="presentation" class="active"><a href="#">Login</a></li>
+              <li role="presentation"><a href="{% url 'index' %}">Home</a></li>
+              <li role="presentation"><a href="{% url 'about' %}">About</a></li>
+              {% if user.is_authenticated %}
+                  <li role="presentation"><a href="#">Hello, {{ user.get_username }}</a></li>
+                  <li role="presentation" class="active"><a href="{% url 'logout' %}">Log out</a></li>
+              {% else %}
+                  <li role="presentation" class="active"><a href="{% url 'register' %}">Register</a></li>
+                  <li role="presentation" class="active"><a href="{% url 'login' %}">Login</a></li>
+              {% endif %}
           </ul>
         </nav>
         <h3 class="text-muted">Yelp Schedulizer</h3>

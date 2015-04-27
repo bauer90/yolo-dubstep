@@ -1,15 +1,75 @@
 from django.shortcuts import render
-from yelp.forms import ZipcodeForm
+from yelp.forms import ZipcodeForm, UserForm, UserProfileForm
+from yelp.models import UserProfile
+from django.contrib.auth import authenticate, login, logout
+from django.http import HttpResponseRedirect, HttpResponse
 from preproc import *
 
 
 def index(request):
-    zipcodes = gen_popular_zipcodes()
-    return render(request, 'yelp/index.html', {'zipcodes': zipcodes})
+    u = request.user
+    location = ''
+    if u.is_authenticated():
+        profile = UserProfile.objects.get(user=u)  # NOT UserProfile.get() !
+        location = getattr(profile, 'location')
+        zipcodes = gen_popular_zipcodes_for_state(location)
+        auth_flag = True
+    else:
+        zipcodes = gen_popular_zipcodes()
+        auth_flag = False
+    return render(request, 'yelp/index.html', {'zipcodes': zipcodes,
+                                               'auth_flag': auth_flag,
+                                               'location': location,
+                                               })
 
 
 def about(request):
     return render(request, 'yelp/about.html', [])
+
+
+def register(request):
+    registered = False
+    if request.method == 'POST':
+        user_form = UserForm(data=request.POST)
+        profile_form = UserProfileForm(data=request.POST)
+        if user_form.is_valid() and profile_form.is_valid():
+            user = user_form.save()
+            user.set_password(user.password)
+            user.save()
+            profile = profile_form.save(commit=False)
+            print(profile_form.cleaned_data['location'])
+            profile.user = user
+            profile.save()
+            registered = True
+        else:
+            print user_form.errors, profile_form.errors
+    else:
+        user_form = UserForm()
+        profile_form = UserProfileForm()
+    return render(request, 'yelp/register.html',
+                  {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+
+
+def user_login(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(username=username, password=password)
+        if user:
+            if user.is_active:
+                login(request, user)
+                return HttpResponseRedirect('/yelp/')
+            else:
+                return HttpResponse('Your account is not activated.')
+        else:
+            return HttpResponse('Invalid login credential.')
+    else:
+        return render(request, 'yelp/login.html', {})
+
+
+def user_logout(request):
+    logout(request)
+    return HttpResponseRedirect('/yelp/')
 
 
 def search_zipcode(request):
