@@ -4,10 +4,17 @@
 
 {% block title_block %} Search Zipcode {% endblock %}
 {% block body_block %}
-<form id="zipcode_form" method="post" action="{% url 'search_zipcode' %}">
+<form id="zipcode_form" method="post" action="{% url 'search_zipcode' %}", class="form-signin">
     <h2 class="form-signin-heading">Search a zipcode</h2>
     {% csrf_token %}
-    {{ form|as_bootstrap }}
+    <input class="form-control" placeholder="Zipcode" id="id_zipcode" name="code" required/>
+    <br/>
+
+    <div class="text-primary"> <strong>Select a business category: </strong> </div>
+    <div class="radio"><label class="radio-inline"><input type="radio" name="cat" value="Restaurants">Restaurants</label></div>
+    <div class="radio"><label class="radio-inline"><input type="radio" name="cat" value="Hotels">Hotels</label></div>
+    <div class="radio"><label class="radio-inline"><input type="radio" name="cat" value="Bars">Bars</label></div>
+    <div class="radio"><label class="radio-inline"><input type="radio" name="cat" value="all_cat">Search All Categories</label></div>
     <br/>
     <button class="btn btn-primary" type="submit" name="submit">Search</button>
 </form>

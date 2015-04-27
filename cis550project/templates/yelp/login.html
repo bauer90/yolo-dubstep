@@ -2,7 +2,7 @@
 {% extends 'yelp/base.html' %}
 {% load staticfiles %}
 <html>
-{% block title %} Login {% endblock %}
+{% block title_block %} Login {% endblock %}
 {% block body_block %}
     <form class="form-signin" role="form" id="login_form" method="post" action="">
         {% csrf_token %}
