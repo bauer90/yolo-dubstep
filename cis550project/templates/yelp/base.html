@@ -44,6 +44,15 @@
            <div>
                 {% block body_block %}{% endblock %}
                 </div>
+
+        <div>
+            {% block map_block %}
+                <iframe height="400px" width="100%" frameborder="0" scrolling="no" src="{% url 'map' %}">
+
+                </iframe>
+
+            {% endblock %}
+        </div>
         </div>
       </div>
 

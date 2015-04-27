@@ -116,3 +116,9 @@ def search_zipcode_result(request, zipcode, category):
                                                                'zipcode_arr': zipcode_arr,
                                                                'cat': category
                                                                })
+
+
+def google_map(request, lati=40, longi=-75):
+    return render(request, 'yelp/google_map.html', {'lati': lati,
+                                                    'longi': longi,
+                                                    })

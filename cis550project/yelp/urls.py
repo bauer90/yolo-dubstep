@@ -12,4 +12,5 @@ urlpatterns = patterns('',
                        url(r'^logout/', views.user_logout, name='logout'),
                        url(r'^search_zipcode/', views.search_zipcode, name='search_zipcode'),
                        url(r'^search_zipcode_reuslt/(?P<zipcode>[\w]+)/(?P<category>[\w]+)$', views.search_zipcode_result, name='search_zipcode_result'),
+                       url(r'^map/', views.google_map, name='map'),
                        )
