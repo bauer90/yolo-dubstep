@@ -36,8 +36,8 @@ def make_search_string(business):
 
 
 # INPUT
-#   'business' is [name, stars, city, state, imgurl]
-# OUTPUT: appending [name, stars, city, state, imgurl, description]
+#   'business' is [name, stars, city, state, imgurl, yelpurl]
+# OUTPUT: appending [name, stars, city, state, imgurl, yelpurl, description]
 #   (a storage 2D array for get_bing_description_parallel()) to result
 def get_bing_description(business, result):
     response = bing_search(make_search_string(business))

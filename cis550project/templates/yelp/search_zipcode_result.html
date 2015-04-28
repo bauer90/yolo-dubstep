@@ -8,13 +8,22 @@
     {% if not arr %}
         <h3>Sorry, this zipcode matches no record in database.</h3>
     {% else %}
-        <tr><th>Name</th><th>Picture</th><th>Rating</th><th>Words from Bing</th></tr>
+        <tr>
+            <th>Name</th>
+            <th>Picture</th>
+            <th>Rating</th>
+            <th>Words from Bing</th>
+            {% if user.is_authenticated %}
+                <th>Add</th>
+            {% endif %}
+        </tr>
         {% for row in arr %}
         <tr>
-            <td>{{row.0}}</td>
-            <td><img src="{{ row.4 }}"></td>
+            <td><a href="{{ row.6 }}" target="_blank">{{row.0}}</a></td>
+            <td><img src="{{ row.5 }}"></td>
             <td>{{row.1}}</td>
-            <td>{{row.5}}</td>
+            <td>{{row.7}}</td>
+            {% if user.is_authenticated %}<td><a href="{% url 'add_business' row.4 %}">Add</a></td>{% endif %}
         </tr>
         {% endfor %}
     </table>

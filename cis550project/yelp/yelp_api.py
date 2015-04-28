@@ -106,18 +106,21 @@ def query_api(term, location):
 # INPUT
 # business: [name, stars, city, state]
 # OUTPUT
-# append an array [name, stars, city, state, imgurl] to 'result'
+# append an array [name, stars, city, state, imgurl, yelpurl] to 'result'
 # (a storage 2D array for get_business_picture_parallel())
 def get_business_picture(business, result):
     name, city, state = business[0], business[2], business[3]
     current_result = business
     current_result.append('')
+    current_result.append('')
     response = query_api(name, city+','+state)
     if response is not None:
         url = response.get('image_url')
-        if url is not None:
+        yelpurl = response.get('url')
+        if url is not None and yelpurl is not None:
             url_big_img = url[:url.rfind('/')] + '/348s.jpg'
-            current_result[-1] = url_big_img
+            current_result[-2] = url_big_img
+            current_result[-1] = yelpurl
             result.append(current_result)
             return
 

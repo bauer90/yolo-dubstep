@@ -36,7 +36,7 @@ def sql_popular_zipcodes_for_state(state):
 # have the given zipcode, order by their
 # ratings.
 def sql_search_zipcode(zipcode, category):
-    select = 'select distinct b.name, b.stars, b.city, b.state ' + \
+    select = 'select distinct b.name, b.stars, b.city, b.state, b.id ' + \
              'from BUSINESS as b left join CATEGORIES as c on b.id = c.business_id '
     where = 'where b.zipcode = "' + zipcode + '" ' + 'and ' + 'c.category like ' + '"%' + category + '%" '
     order = 'order by b.stars desc limit 20 '
@@ -49,6 +49,18 @@ def sql_search_zipcode(zipcode, category):
 def sql_zip_center(zipcode):
     return """select avg(b.latitude), avg(b.longitude) from BUSINESS as b
               where b.zipcode = '""" + str(zipcode) + "'"
+
+
+def sql_id_info(business_id):
+    select = 'select b.name, b.latitude, b.longitude from BUSINESS as b '
+    where = 'where b.id = "' + business_id + '" '
+    return select + where
+
+
+def sql_tips(business_id):
+    select = 'select t.tip from TIPS as t '
+    where = 'where t.business_id = "' + business_id + '" limit 5 '
+    return select + where
 
 
 # Returns the set of all zipcodes that are
@@ -78,4 +90,5 @@ def sql_search_nearby(zipcode, category):
 
 # TESTING AREA
 if __name__ == '__main__':
-    print(sql_popular_zipcodes_for_state('NV'))
+    print(sql_id_info('Nfefwefwef'))
+    print(sql_tips('fjwoefiwoehif'))

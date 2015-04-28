@@ -2,7 +2,6 @@
 {% extends 'yelp/base.html' %}
 {% load staticfiles %}
 {% load bootstrap_toolkit %}
-<html>
 {% block title_block %} Register {% endblock %}
 {% block body_block %}
     {% if registered %}
@@ -25,8 +24,12 @@
             <div class="radio"><label class="radio-inline"><input type="radio" name="location" value="AZ">Phoenix, AZ</label></div>
             <div class="radio"><label class="radio-inline"><input type="radio" name="location" value="WI">Madison, WI</label></div>
             <br/>
+            <div class="text-primary"> <strong>Choose Your Preferred Business Category:</strong> </div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="preference" value="Restaurants">Restaurants & Food</label></div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="preference" value="Shopping">Shopping</label></div>
+            <div class="radio"><label class="radio-inline"><input type="radio" name="preference" value="Bars">Bars</label></div>
+            <br/>
             <input class="btn btn-primary" type="submit" name="submit" value="Register" />
         </form>
     {% endif %}
 {% endblock %}
-</html>

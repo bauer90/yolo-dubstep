@@ -72,6 +72,53 @@ def user_logout(request):
     return HttpResponseRedirect('/yelp/')
 
 
+def current_user_info(request):
+    u = request.user
+    if u.is_authenticated():
+        profile = UserProfile.objects.get(user=u)
+        names_and_locs = [
+            gen_id_info(profile.desired_1),
+            gen_id_info(profile.desired_2),
+            gen_id_info(profile.desired_3),
+        ]
+        tips = [
+            gen_tips(profile.desired_1),
+            gen_tips(profile.desired_2),
+            gen_tips(profile.desired_3),
+        ]
+        return render(request, 'yelp/current_user.html', {'profile': profile,
+                                                          'names_and_locs': names_and_locs,
+                                                          'tips': tips,
+                                                          })
+
+
+def add_business(request, business_id):
+    u = request.user
+    if u.is_authenticated():
+        profile = UserProfile.objects.get(user=u)
+        print(business_id)
+        print('wjefowiehfowiehiowh')
+        num = profile.num_businesses_so_far
+        if num == 0:
+            setattr(profile, 'desired_1', business_id)
+            setattr(profile, 'num_businesses_so_far', 1)
+            profile.save()
+
+        elif num == 1:
+            setattr(profile, 'desired_2', business_id)
+            setattr(profile, 'num_businesses_so_far', 2)
+            profile.save()
+        elif num == 2:
+            setattr(profile, 'desired_3', business_id)
+            setattr(profile, 'num_businesses_so_far', 3)
+            profile.save()
+        else:
+            return render(request, 'yelp/index.html', {})
+        return render(request, 'yelp/current_user.html', {'profile': profile})
+    else:
+        return render(request, 'yelp/index.html', {})
+
+
 def search_zipcode(request):
     if request.method == 'POST':
         form = ZipcodeForm(request.POST)
@@ -118,7 +165,7 @@ def search_zipcode_result(request, zipcode, category):
                                                                })
 
 
-def google_map(request, lati=40, longi=-75):
-    return render(request, 'yelp/google_map.html', {'lati': lati,
-                                                    'longi': longi,
-                                                    })
+# Philadelphia as default location (40,-75)
+def google_map(request, name_and_locs):
+    return render(request, 'yelp/google_map_direction.html', {'name_and_locs', name_and_locs,
+                                                              })

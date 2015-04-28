@@ -17,7 +17,7 @@ def sql_result_to_arr(result):
 
 
 def remove_non_alnum(text):
-    return re.sub(r'[^a-zA-Z0-9.-]', ' ', text)
+    return re.sub(r'[^.\w\-_]', ' ', text)
 
 
 def get_alnum_row(tup):
@@ -82,9 +82,19 @@ def add_bing_to_zipcode_result(arr):
     return get_bing_description_parallel(businesses)
 
 
+def gen_id_info(id):
+    result = sql_connect(sql_id_info(id))
+    arr = sql_result_to_arr(result)
+    return [] if len(arr) == 0 else arr[0]
+
+
+def gen_tips(id):
+    result = sql_connect(sql_tips(id))
+    arr = sql_result_to_arr(result)
+    return arr
+
+
 # TEST AREA (test these before using in views.py)
 # print(gen_popular_zipcodes())
 if __name__ == '__main__':
-    arr = gen_zipcode_result('89109')
-    print arr
-    print(add_image_to_zipcode_result(arr))
+    print(gen_id_info(''))

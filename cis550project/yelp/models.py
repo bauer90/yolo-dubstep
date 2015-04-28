@@ -12,7 +12,11 @@ class Zipcode(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
     location = models.CharField(max_length=2, default='WI')
-    picture = models.URLField(blank=True)
+    preference = models.CharField(max_length=20, default='Restaurants')
+    desired_1 = models.CharField(max_length=22, default='')
+    desired_2 = models.CharField(max_length=22, default='')
+    desired_3 = models.CharField(max_length=22, default='')
+    num_businesses_so_far = models.IntegerField(default=0)
 
     def __unicode__(self):
         return self.user.username

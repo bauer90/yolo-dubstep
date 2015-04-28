@@ -7,7 +7,7 @@ from yelp.models import Zipcode, UserProfile
 class ZipcodeForm(forms.ModelForm):
     options = [
         ('Restaurants', 'Restaurants'),
-        ('Hotels', 'Hotels'),
+        ('Shopping', 'Shopping'),
         ('Bars', 'Bars'),
         ('all_cat', 'Search All Categories')
         ]
@@ -37,8 +37,15 @@ class UserProfileForm(forms.ModelForm):
         ('AZ', 'Phoenix, AZ'),
         ('WI', 'Madison, WI'),
     ]
+
+    preference_options = [
+        ('Restaurants', 'Restaurants'),
+        ('Shopping', 'Shopping'),
+        ('Bars', 'Bars'),
+    ]
     location = forms.ChoiceField(choices=location_options, widget=forms.RadioSelect())
+    preference = forms.ChoiceField(choices=preference_options, widget=forms.RadioSelect())
 
     class Meta:
         model = UserProfile
-        fields = ('location',)
+        fields = ('location', 'preference')
