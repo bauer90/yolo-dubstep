@@ -148,7 +148,7 @@ def search_zipcode_result(request, zipcode, category):
         # after this call, arr has elements that
         # look like [name, stars, city, state, imgurl]
         arr = add_image_to_zipcode_result(arr)
-
+        print arr
         # for each business, append a bing search result
         # (description of the first search result for that business).
         # after this call, arr has elements that
