@@ -1,4 +1,4 @@
-# yolo-dubstep (550 Project, currently hosted on http://54.186.41.248/)
+# yolo-dubstep (a CIS550 Project)
 
 
 ###DB Schemas
